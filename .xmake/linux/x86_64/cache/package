@@ -1,0 +1,172 @@
+{
+    stb = {
+        version = "2025.03.14",
+        installdir = "/home/oxff/.xmake/packages/s/stb/2025.03.14/67005fc11486400896028eb775a57270",
+        __requirestr = "stb",
+        sysincludedirs = {
+            "/home/oxff/.xmake/packages/s/stb/2025.03.14/67005fc11486400896028eb775a57270/include",
+            "/home/oxff/.xmake/packages/s/stb/2025.03.14/67005fc11486400896028eb775a57270/include/stb"
+        },
+        __enabled = true
+    },
+    glfw = {
+        links = {
+            "glfw3",
+            "OpenGL",
+            "Xrandr",
+            "Xinerama",
+            "Xcursor",
+            "Xrender",
+            "X11",
+            "Xi",
+            "Xfixes",
+            "Xext",
+            "X11-xcb",
+            "xcb",
+            "xcb-composite",
+            "xcb-damage",
+            "xcb-dbe",
+            "xcb-dpms",
+            "xcb-dri2",
+            "xcb-dri3",
+            "xcb-glx",
+            "xcb-present",
+            "xcb-randr",
+            "xcb-record",
+            "xcb-render",
+            "xcb-res",
+            "xcb-screensaver",
+            "xcb-shape",
+            "xcb-shm",
+            "xcb-sync",
+            "xcb-xf86dri",
+            "xcb-xfixes",
+            "xcb-xinerama",
+            "xcb-xinput",
+            "xcb-xkb",
+            "xcb-xtest",
+            "xcb-xv",
+            "xcb-xvmc",
+            "Xau",
+            "Xdmcp"
+        },
+        syslinks = {
+            "dl",
+            "pthread"
+        },
+        __requirestr = "glfw",
+        defines = "GLFW_INCLUDE_NONE",
+        license = "zlib",
+        linkdirs = "/home/oxff/.xmake/packages/g/glfw/3.4/4c3c72af70fd4599a3038fc662af9c28/lib",
+        envs = {
+            PYTHONPATH = {
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/lib/python3.13/site-packages"
+            },
+            PATH = {
+                "/home/oxff/.xmake/packages/n/ninja/v1.13.1/e7cc4735aeb048e6870171a23c4ee800/bin",
+                "/home/oxff/.xmake/packages/c/cmake/4.0.3/b686e3b7911246e2bfa1b52ae27762fe/bin",
+                "/home/oxff/.xmake/packages/p/pkg-config/0.29.2/a0aba256d7674c1bbee15f0ee1534e92/bin",
+                "/home/oxff/.xmake/packages/p/pkg-config/0.29.2/a0aba256d7674c1bbee15f0ee1534e92/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/Scripts"
+            },
+            LD_LIBRARY_PATH = {
+                "/home/oxff/.xmake/packages/l/libx11/1.8.12/5b3492e889e848b2b511e3f3031c5538/lib"
+            }
+        },
+        sysincludedirs = "/home/oxff/.xmake/packages/g/glfw/3.4/4c3c72af70fd4599a3038fc662af9c28/include",
+        __enabled = true,
+        installdir = "/home/oxff/.xmake/packages/g/glfw/3.4/4c3c72af70fd4599a3038fc662af9c28",
+        static = true,
+        libfiles = {
+            "/home/oxff/.xmake/packages/g/glfw/3.4/4c3c72af70fd4599a3038fc662af9c28/lib/libglfw3.a",
+            "/usr/lib/libOpenGL.so",
+            "/usr/lib/libXrandr.so",
+            "/usr/lib/libXinerama.so",
+            "/usr/lib/libXcursor.so",
+            "/usr/lib/libXrender.so",
+            "/usr/lib/libX11.so",
+            "/usr/lib/libXi.so",
+            "/usr/lib/libXfixes.so",
+            "/usr/lib/libXext.so",
+            "/usr/lib/libX11-xcb.so",
+            "/usr/lib/libxcb-composite.so",
+            "/usr/lib/libxcb-damage.so",
+            "/usr/lib/libxcb-dbe.so",
+            "/usr/lib/libxcb-dpms.so",
+            "/usr/lib/libxcb-dri2.so",
+            "/usr/lib/libxcb-dri3.so",
+            "/usr/lib/libxcb-glx.so",
+            "/usr/lib/libxcb-present.so",
+            "/usr/lib/libxcb-randr.so",
+            "/usr/lib/libxcb-record.so",
+            "/usr/lib/libxcb-render.so",
+            "/usr/lib/libxcb-res.so",
+            "/usr/lib/libxcb-screensaver.so",
+            "/usr/lib/libxcb-shape.so",
+            "/usr/lib/libxcb-shm.so",
+            "/usr/lib/libxcb-sync.so",
+            "/usr/lib/libxcb-xf86dri.so",
+            "/usr/lib/libxcb-xfixes.so",
+            "/usr/lib/libxcb-xinerama.so",
+            "/usr/lib/libxcb-xinput.so",
+            "/usr/lib/libxcb-xkb.so",
+            "/usr/lib/libxcb-xtest.so",
+            "/usr/lib/libxcb-xv.so",
+            "/usr/lib/libxcb-xvmc.so",
+            "/usr/lib/libxcb.so",
+            "/usr/lib/libXau.so",
+            "/usr/lib/libXdmcp.so"
+        },
+        version = "3.4"
+    },
+    glad = {
+        links = "glad",
+        syslinks = "dl",
+        sysincludedirs = "/home/oxff/.xmake/packages/g/glad/v0.1.36/9e3539cb78a3425b96246554411a0b79/include",
+        license = "MIT",
+        linkdirs = "/home/oxff/.xmake/packages/g/glad/v0.1.36/9e3539cb78a3425b96246554411a0b79/lib",
+        version = "v0.1.36",
+        envs = {
+            PYTHONPATH = {
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/lib/python3.13/site-packages"
+            },
+            PATH = {
+                "/home/oxff/.xmake/packages/n/ninja/v1.13.1/e7cc4735aeb048e6870171a23c4ee800/bin",
+                "/home/oxff/.xmake/packages/c/cmake/4.0.3/b686e3b7911246e2bfa1b52ae27762fe/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/bin",
+                "/home/oxff/.xmake/packages/p/python/3.13.2/7dbc4c2192884093912e9407517d19cf/Scripts"
+            }
+        },
+        __enabled = true,
+        installdir = "/home/oxff/.xmake/packages/g/glad/v0.1.36/9e3539cb78a3425b96246554411a0b79",
+        static = true,
+        libfiles = "/home/oxff/.xmake/packages/g/glad/v0.1.36/9e3539cb78a3425b96246554411a0b79/lib/libglad.a",
+        __requirestr = "glad"
+    },
+    glm = {
+        version = "1.0.2",
+        installdir = "/home/oxff/.xmake/packages/g/glm/1.0.2/f8fba32531124eb38c4833bdc558de88",
+        __requirestr = "glm",
+        __enabled = true,
+        sysincludedirs = "/home/oxff/.xmake/packages/g/glm/1.0.2/f8fba32531124eb38c4833bdc558de88/include",
+        __requireconfs = {
+            alias = "glm"
+        },
+        license = "MIT"
+    },
+    tinyobjloader = {
+        links = "tinyobjloader",
+        license = "MIT",
+        linkdirs = "/home/oxff/.xmake/packages/t/tinyobjloader/v2.0.0rc13/76c0e8629e5a4e488fe3f9054a41adf4/lib",
+        version = "v2.0.0rc13",
+        sysincludedirs = "/home/oxff/.xmake/packages/t/tinyobjloader/v2.0.0rc13/76c0e8629e5a4e488fe3f9054a41adf4/include",
+        __enabled = true,
+        installdir = "/home/oxff/.xmake/packages/t/tinyobjloader/v2.0.0rc13/76c0e8629e5a4e488fe3f9054a41adf4",
+        static = true,
+        libfiles = "/home/oxff/.xmake/packages/t/tinyobjloader/v2.0.0rc13/76c0e8629e5a4e488fe3f9054a41adf4/lib/libtinyobjloader.a",
+        __requirestr = "tinyobjloader"
+    }
+}

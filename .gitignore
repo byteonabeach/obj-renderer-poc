@@ -1,0 +1,13 @@
+build/
+xmake/
+assets/**.obj
+assets/**.png
+assets/**.jpg
+.vs/
+.vscode/
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.tlog
+*.log
