@@ -1,8 +1,8 @@
 build/
 .xmake/
-assets/**.obj
-assets/**.png
-assets/**.jpg
+assets/meshes/**
+assets/textures/**
+assets/**
 .vs/
 .vscode/
 *.exe
