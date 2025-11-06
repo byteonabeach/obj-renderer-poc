@@ -3,128 +3,146 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#include "Camera.hpp"
-#include "Mesh.hpp"
-#include "Shader.hpp"
-#include "Texture.hpp"
-
 #include <iostream>
 
+import Camera;
+import Mesh;
+import Shader;
+import Texture;
+
 unsigned int scr_width = 1200, scr_height = 800;
-Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
-float lastX = scr_width / 2.0f, lastY = scr_height / 2.0f;
+Graphics::Camera camera{glm::vec3(0.0f, 0.0f, 5.0f)};
+float lastX = static_cast<float>(scr_width) / 2.0f, lastY = static_cast<float>(scr_height) / 2.0f;
 bool firstMouse = true;
 float deltaTime = 0.0f, lastFrame = 0.0f;
 
-void framebuffer_size_callback(GLFWwindow *w, int width, int height) {
-  scr_width = width;
-  scr_height = height;
-  glViewport(0, 0, width, height);
+void framebuffer_size_callback(GLFWwindow* w, int width, int height) noexcept {
+    scr_width = static_cast<unsigned int>(width);
+    scr_height = static_cast<unsigned int>(height);
+    glViewport(0, 0, width, height);
 }
 
-void mouse_callback(GLFWwindow *w, double xpos, double ypos) {
-  if (firstMouse) {
-    lastX = xpos;
-    lastY = ypos;
-    firstMouse = false;
-  }
+void mouse_callback(GLFWwindow* w, double xpos, double ypos) noexcept {
+    if (firstMouse) {
+        lastX = static_cast<float>(xpos);
+        lastY = static_cast<float>(ypos);
+        firstMouse = false;
+    }
 
-  float xoffset = xpos - lastX;
-  float yoffset = lastY - ypos;
-  lastX = xpos;
-  lastY = ypos;
-  camera.ProcessMouseMovement(xoffset, yoffset);
+    const float xoffset = static_cast<float>(xpos) - lastX;
+    const float yoffset = lastY - static_cast<float>(ypos);
+    lastX = static_cast<float>(xpos);
+    lastY = static_cast<float>(ypos);
+    camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-void scroll_callback(GLFWwindow *w, double xoffset, double yoffset) {
-  camera.ProcessMouseScroll(static_cast<float>(yoffset));
+void scroll_callback(GLFWwindow* w, double xoffset, double yoffset) noexcept {
+    camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
-void processInput(GLFWwindow *window) {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, true);
-  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    camera.ProcessKeyboard(FORWARD, deltaTime);
-  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    camera.ProcessKeyboard(BACKWARD, deltaTime);
-  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-    camera.ProcessKeyboard(LEFT, deltaTime);
-  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-    camera.ProcessKeyboard(RIGHT, deltaTime);
+void processInput(GLFWwindow* window) noexcept {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        camera.ProcessKeyboard(Graphics::CameraMovement::Forward, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        camera.ProcessKeyboard(Graphics::CameraMovement::Backward, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        camera.ProcessKeyboard(Graphics::CameraMovement::Left, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        camera.ProcessKeyboard(Graphics::CameraMovement::Right, deltaTime);
 }
 
 int main() {
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    if (!glfwInit()) {
+        std::cout << "GLFW initialization failed\n";
+        return -1;
+    }
 
-  GLFWwindow *window = glfwCreateWindow(
-      scr_width, scr_height, "Homework - Phong Renderer", nullptr, nullptr);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  if (!window) {
-    std::cout << "GLFW window failed\n";
-    return -1;
-  }
+    GLFWwindow* window = glfwCreateWindow(
+        static_cast<int>(scr_width),
+        static_cast<int>(scr_height),
+        "Homework - Phong Renderer",
+        nullptr,
+        nullptr
+    );
 
-  glfwMakeContextCurrent(window);
-  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-  glfwSetCursorPosCallback(window, mouse_callback);
-  glfwSetScrollCallback(window, scroll_callback);
-  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    if (!window) {
+        std::cout << "GLFW window creation failed\n";
+        glfwTerminate();
+        return -1;
+    }
 
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    std::cout << "GLAD failed\n";
-    return -1;
-  }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetScrollCallback(window, scroll_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-  glEnable(GL_DEPTH_TEST);
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cout << "GLAD initialization failed\n";
+        glfwTerminate();
+        return -1;
+    }
 
-  Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
-  Mesh mesh("assets/models/head.obj");
-  mesh.setupMesh();
+    glEnable(GL_DEPTH_TEST);
 
-  unsigned int tex = loadTexture("assets/textures/head.png", false);
+    try {
+        Graphics::Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+        Graphics::Mesh mesh("assets/models/head.obj");
+        const unsigned int tex = Graphics::loadTexture("assets/textures/head.png", false);
 
-  while (!glfwWindowShouldClose(window)) {
-    float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+        while (!glfwWindowShouldClose(window)) {
+            const float currentFrame = static_cast<float>(glfwGetTime());
+            deltaTime = currentFrame - lastFrame;
+            lastFrame = currentFrame;
 
-    processInput(window);
+            processInput(window);
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader.use();
-    shader.setInt("textureSampler", 0);
-    shader.setVec3("lightPos", glm::vec3(3.0f, 4.0f, 5.0f));
-    shader.setVec3("viewPos", camera.Position);
-    shader.setVec3("lightColor", {1.0f, 1.0f, 1.0f});
-    shader.setFloat("ambientStrength", 0.2f);
-    shader.setFloat("specularStrength", 0.8f);
-    shader.setFloat("shininess", 32.0f);
+            shader.use();
+            shader.setInt("textureSampler", 0);
+            shader.setVec3("lightPos", glm::vec3(3.0f, 4.0f, 5.0f));
+            shader.setVec3("viewPos", camera.Position);
+            shader.setVec3("lightColor", {1.0f, 1.0f, 1.0f});
+            shader.setFloat("ambientStrength", 0.2f);
+            shader.setFloat("specularStrength", 0.8f);
+            shader.setFloat("shininess", 32.0f);
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, (float)glfwGetTime() * glm::radians(30.0f),
-                        glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 proj = glm::perspective(
-        glm::radians(camera.Zoom), (float)scr_width / scr_height, 0.1f, 100.0f);
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::rotate(model, currentFrame * glm::radians(30.0f),
+                                glm::vec3(0.0f, 1.0f, 0.0f));
+            glm::mat4 view = camera.GetViewMatrix();
+            glm::mat4 proj = glm::perspective(
+                glm::radians(camera.Zoom),
+                static_cast<float>(scr_width) / static_cast<float>(scr_height),
+                0.1f,
+                100.0f
+            );
 
-    shader.setMat4("model", model);
-    shader.setMat4("view", view);
-    shader.setMat4("projection", proj);
+            shader.setMat4("model", model);
+            shader.setMat4("view", view);
+            shader.setMat4("projection", proj);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    mesh.Draw(shader);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, tex);
+            mesh.Draw(shader);
 
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-  }
+            glfwSwapBuffers(window);
+            glfwPollEvents();
+        }
+    } catch (const std::exception& e) {
+        std::cout << "Exception occurred: " << e.what() << std::endl;
+        glfwTerminate();
+        return -1;
+    }
 
-  glfwTerminate();
-  return 0;
+    glfwTerminate();
+    return 0;
 }
