@@ -2,7 +2,6 @@ build/
 .xmake/
 assets/meshes/**
 assets/textures/**
-assets/**
 .vs/
 .vscode/
 *.exe
