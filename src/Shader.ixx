@@ -19,14 +19,13 @@ export namespace Graphics {
 
         Shader(const char* vertexPath, const char* fragmentPath) {
             auto [vertexResult, vertexCode] = readFile(vertexPath);
-            if (!vertexResult) {
+
+            if (!vertexResult)
                 throw std::runtime_error("Failed to read vertex shader file: " + std::string(vertexPath));
-            }
 
             auto [fragmentResult, fragmentCode] = readFile(fragmentPath);
-            if (!fragmentResult) {
+            if (!fragmentResult)
                 throw std::runtime_error("Failed to read fragment shader file: " + std::string(fragmentPath));
-            }
 
             const char* vShaderCode = vertexCode.c_str();
             const char* fShaderCode = fragmentCode.c_str();
@@ -37,6 +36,7 @@ export namespace Graphics {
                 glCompileShader(id);
                 return id;
             }();
+
             checkCompileErrors(vertex, "VERTEX");
 
             const unsigned int fragment = [&fShaderCode] {
@@ -45,6 +45,7 @@ export namespace Graphics {
                 glCompileShader(id);
                 return id;
             }();
+
             checkCompileErrors(fragment, "FRAGMENT");
 
             ID = [&vertex, &fragment] {
@@ -54,6 +55,7 @@ export namespace Graphics {
                 glLinkProgram(program);
                 return program;
             }();
+
             checkCompileErrors(ID, "PROGRAM");
 
             glDeleteShader(vertex);
@@ -86,9 +88,8 @@ export namespace Graphics {
         [[nodiscard]]
         auto readFile(const char* path) const -> std::pair<bool, std::string> {
             std::ifstream file(path);
-            if (!file.is_open()) {
+            if (!file.is_open())
                 return {false, {}};
-            }
 
             std::string content;
             content.assign(std::istreambuf_iterator<char>(file),

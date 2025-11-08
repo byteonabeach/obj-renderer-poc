@@ -19,6 +19,7 @@ float deltaTime = 0.0f, lastFrame = 0.0f;
 void framebuffer_size_callback(GLFWwindow* w, int width, int height) noexcept {
     scr_width = static_cast<unsigned int>(width);
     scr_height = static_cast<unsigned int>(height);
+
     glViewport(0, 0, width, height);
 }
 

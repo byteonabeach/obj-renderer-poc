@@ -31,14 +31,15 @@ export namespace Graphics {
         explicit Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f),
                        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
                        float yaw = -90.0f, float pitch = 0.0f) noexcept
-            : Front(glm::vec3(0.0f, 0.0f, -1.0f))
-            , MovementSpeed(2.5f)
-            , MouseSensitivity(0.1f)
-            , Zoom(45.0f)
-            , Position(position)
-            , WorldUp(up)
-            , Yaw(yaw)
-            , Pitch(pitch)
+            :
+            Front(glm::vec3(0.0f, 50.0f, -1.0f)),
+            MovementSpeed(10.f),
+            MouseSensitivity(0.1f),
+            Zoom(45.0f),
+            Position(position),
+            WorldUp(up),
+            Yaw(yaw),
+            Pitch(pitch)
         {
             updateCameraVectors();
         }
@@ -49,6 +50,7 @@ export namespace Graphics {
 
         void ProcessKeyboard(CameraMovement direction, float deltaTime) noexcept {
             const float velocity = MovementSpeed * deltaTime;
+
             switch (direction) {
                 case CameraMovement::Forward:
                     Position += Front * velocity;
@@ -72,9 +74,8 @@ export namespace Graphics {
             Yaw += xoffset;
             Pitch += yoffset;
 
-            if (constrainPitch) {
+            if (constrainPitch)
                 Pitch = std::clamp(Pitch, -89.0f, 89.0f);
-            }
 
             updateCameraVectors();
         }

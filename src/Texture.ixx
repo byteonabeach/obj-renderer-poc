@@ -52,9 +52,10 @@ export namespace Graphics {
             stbi_image_free(data);
         } else {
             std::cout << "Failed to load texture: " << path << std::endl;
-            if (data) {
+
+            if (data)
                 stbi_image_free(data);
-            }
+
             return 0;
         }
 
